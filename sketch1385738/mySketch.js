@@ -1,5 +1,4 @@
 
- 
   let speed = 0.5; 
   let bubble1;
   let bubble2; 
@@ -7,6 +6,7 @@
   var song
   let bigWords = ['BREATHE IN', 'BREATHE OUT'];
   let index = 0; 
+  var mic; 
 
 function preload(){
   song = loadSound("chill-ambient-11322.mp3"); 
@@ -20,11 +20,15 @@ function setup() {
   bubble2 = new Bubble (200, 100); 
   bubble3 = new Bubble (300, 200); 
   setInterval(changeWord, 3000);
+  mic = new p5.AudioIn(); 
+  mic.start();
 }
 
 function draw() {
-  background(220);
-  scene1(); 
+  scene2(); 
+  if (millis() > 10000){
+  scene3(); 
+  } 
 }
 
 class Bubble {
@@ -73,7 +77,8 @@ class Bubble {
 */ 
 
 
-function scene1(){
+function scene2(){
+  background(220);
   text(bigWords[index], 150, 300);
   bubble1.display(); 
   bubble2.display(); 
@@ -91,4 +96,18 @@ function changeWord(){
    index = 0; 
     
   }
+  
+}
+
+function scene3(){
+  background(220);
+  textSize(30); 
+  text('SCREAM', 200, 100); 
+  textSize(20); 
+  text('unleash your anger', 100, 150); 
+  
+  var vol = mic.getLevel(); 
+  
+  ellipse (200, 200, vol * 400, vol *400);
+  console.log(vol); 
 }
