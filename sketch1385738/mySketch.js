@@ -1,7 +1,4 @@
-let speed = 0.5; 
-  let bubble1;
-  let bubble2; 
-  let bubble3; 
+ let speed = 0.5; 
   var song
   let bigWords = ['BREATHE IN', 'BREATHE OUT'];
   let index = 0; 
@@ -9,6 +6,20 @@ let speed = 0.5;
   var video; 
   var fade; 
   var fadeAmount = 1; 
+  let bubble1; 
+  let bubble2; 
+  let bubble3; 
+  let bubble4; 
+  let bubble5; 
+  let bubble6; 
+  let bubble7; 
+  let bubble8;
+  let bubble9; 
+  let bubble10; 
+  let angle = 0;
+
+
+
 
 function preload(){
   song = loadSound("chill-ambient-11322.mp3"); 
@@ -18,10 +29,17 @@ function preload(){
 function setup() {
   createCanvas(800, 800);
   song.play(); 
-  bubble1 = new Bubble (300, 500); 
-  bubble2 = new Bubble (400, 300); 
-  bubble3 = new Bubble (500, 500); 
-  setInterval(changeWord, 3000);
+  bubble1 = new Bubble(400, 200); 
+  bubble2 = new Bubble(250, 250);
+  bubble3 = new Bubble(150, 400); 
+  bubble4 = new Bubble(150, 550); 
+  bubble5 = new Bubble(250, 650); 
+  bubble6 = new Bubble(400, 700); 
+  bubble7 = new Bubble(550, 650); 
+  bubble8 = new Bubble(650, 400); 
+  bubble9 = new Bubble(550, 250); 
+  bubble10 = new Bubble(650, 550); 
+  setInterval(changeWord, 4000);
   mic = new p5.AudioIn(); 
   mic.start();
   
@@ -53,29 +71,13 @@ class Bubble {
   }
   
   display(){
-    ellipse (this.x, this.y, 50, 50); 
+    let r = map(sin(angle), -1, 1, 100, 150); //using sin function, circles will follow the sin graph
+    circle(this.x, this.y, r * 0.5);
+
+    angle += 0.001; //increment slowly = creating a slower pace 
   }
   
-  breatheIn(){
-    this.x = this.x + speed; 
-    //if(x > 200 || x < 100 ){
-    //speed = -speed;
-  }
-  
-  breatheIn3(){
-    this.x = (this.x) - speed;
-  }
-  
-  breatheIn2(){
-    this.y = this.y + speed 
-  }
-  
-  breatheOut(){
-    if(this.x > 200 || this.x < 100 ){
-    speed = -speed;
-  }
-  
-  } 
+
 }//closer to class
 
 
@@ -83,14 +85,18 @@ class Bubble {
 
 function scene3(){
   background(220);
-  text(bigWords[index], 150, 300);
+  textSize(30); 
+  text(bigWords[index], 330, 450);
   bubble1.display(); 
   bubble2.display(); 
   bubble3.display(); 
-  bubble1.breatheIn(); 
-  bubble2.breatheIn2(); 
-  bubble3.breatheIn3(); 
-  bubble1.breatheOut();
+  bubble4.display(); 
+  bubble5.display(); 
+  bubble6.display(); 
+  bubble7.display(); 
+  bubble8.display(); 
+  bubble9.display(); 
+  bubble10.display(); 
 } 
 
 function changeWord(){  
@@ -119,7 +125,6 @@ function scene2(){
 function intro() {
   image(video, 450, 200, 300, 300);
   textSize(40); 
-  //textFont(myFont); 
   fill(255, fade); 
   text('welcome', 100, 250); 
   if (fade<0) {
@@ -144,6 +149,7 @@ function intro() {
   
   fade += fadeAmount; 
 } 
+
 
 
 
