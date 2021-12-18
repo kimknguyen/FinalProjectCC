@@ -1,4 +1,5 @@
- let speed = 0.5; 
+
+  let speed = 0.5; 
   var song
   let bigWords = ['BREATHE IN', 'BREATHE OUT'];
   let index = 0; 
@@ -23,6 +24,10 @@
 
 function preload(){
   song = loadSound("chill-ambient-11322.mp3"); 
+  introback = loadImage('introbackground.png'); 
+  introtext = loadFont('QalissoItalic.otf');  
+  explode = loadImage('explodeconfetti.png'); 
+  space = loadImage('scene3back.jpeg'); 
 } 
   
   
@@ -49,19 +54,19 @@ function setup() {
   video.hide();
   
   fade = 0;
-
+  
+  
 }
 
 function draw() {
   background(0); 
-  //intro(); 
-  //if(millis() > 10000){
-  //scene2(); 
-  //} 
-  //if (millis() > 20000){
-  //scene3(); 
-  //}
-   scene3(); 
+  intro(); 
+  if(millis() > 10000){
+  scene2(); 
+  } 
+  if (millis() > 20000){
+  scene3(); 
+  }
 }
 
 class Bubble {
@@ -71,6 +76,7 @@ class Bubble {
   }
   
   display(){
+    fill(107, 249, 250, 98); 
     let r = map(sin(angle), -1, 1, 100, 150); //using sin function, circles will follow the sin graph
     circle(this.x, this.y, r * 0.5);
 
@@ -84,8 +90,9 @@ class Bubble {
 
 
 function scene3(){
-  background(220);
+  image(space, 0, 0, width, height);
   textSize(30); 
+  fill(255); 
   text(bigWords[index], 330, 450);
   bubble1.display(); 
   bubble2.display(); 
@@ -110,21 +117,33 @@ function changeWord(){
 }
 
 function scene2(){
-  background(220);
-  textSize(30); 
+  background(225);
+  textSize(30);  
+  fill(0); 
   text('SCREAM', 400, 200); 
   textSize(20); 
   text('unleash your anger', 450, 250); 
   
   var vol = mic.getLevel(); 
+  var threshold = 0.5; 
   
+  fill(255); 
   ellipse (400, 400, vol * 400, vol *400);
   //console.log(vol); 
+  
+  if (vol > threshold){
+    background(225); 
+    image(explode, 0, 100 );  
+    
+  } 
 }
 
 function intro() {
+  image(introback, 0, 0, width, height); 
   image(video, 450, 200, 300, 300);
-  textSize(40); 
+  textFont(introtext); 
+  textSize(35); 
+  textStyle(BOLD); 
   fill(255, fade); 
   text('welcome', 100, 250); 
   if (fade<0) {
@@ -149,7 +168,6 @@ function intro() {
   
   fade += fadeAmount; 
 } 
-
 
 
 
