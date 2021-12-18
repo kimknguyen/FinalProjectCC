@@ -18,7 +18,7 @@
   let bubble9; 
   let bubble10; 
   let angle = 0;
-
+  
 
 
 
@@ -28,6 +28,7 @@ function preload(){
   introtext = loadFont('QalissoItalic.otf');  
   explode = loadImage('explodeconfetti.png'); 
   space = loadImage('scene3back.jpeg'); 
+  
 } 
   
   
@@ -67,6 +68,9 @@ function draw() {
   if (millis() > 20000){
   scene3(); 
   }
+  if(millis() > 40000){
+  outro(); 
+  } 
 }
 
 class Bubble {
@@ -90,9 +94,10 @@ class Bubble {
 
 
 function scene3(){
-  image(space, 0, 0, width, height);
+  //background(228, 145, 255, 100);
+  background(255); 
   textSize(30); 
-  fill(255); 
+  fill(0); 
   text(bigWords[index], 330, 450);
   bubble1.display(); 
   bubble2.display(); 
@@ -167,6 +172,20 @@ function intro() {
   }  
   
   fade += fadeAmount; 
+} 
+
+function outro(){
+  image(space, 0, 0, width, height)
+  image(video, 450, 200, 300, 300);
+  textFont(introtext); 
+  textSize(40); 
+  textStyle(BOLD); 
+  fill(255, fade); 
+  text('bye', 100, 350); 
+  if (fade<0) {
+    fadeAmount=1;
+  } 
+   fade += fadeAmount; 
 } 
 
 
